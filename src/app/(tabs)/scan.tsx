@@ -14,7 +14,7 @@ const Scan = () => {
                     </View>
                 </View>
             </View>
-        </View>
+        </View >
     );
 }
 
