@@ -23,6 +23,9 @@ const Leaderboard = () => {
                     </View>
                     <ScrollView>
                         <View style={styles.flex}>
+                            {/**
+                             * TODO #5: Implement the bar chart when there are users in the database to visualize the points of each user.
+                             */}
                             {db?.users?.length > 0 &&
                                 <BarChart
                                     data={chartData}
@@ -34,6 +37,9 @@ const Leaderboard = () => {
                                     yAxisThickness={0}
                                 />
                             }
+                            {/**
+                             * TODO #6: Display the list of users with a template card component.
+                             */}
                             {db.users.map((user, index) => (
                                 <View key={index} style={styles.card}>
                                     <View style={styles.horizontalFlex}>
