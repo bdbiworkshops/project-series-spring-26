@@ -60,29 +60,6 @@ const CameraScreen = () => {
          * TODO #2: Implement the classify function.
          * Send the photo to the Flask server and fetch the prediction result.
          */
-
-        setLoading(true);
-
-        const formData = new FormData();
-        formData.append("image", {
-            uri,
-            name: "photo.jpg",
-            type: "image/jpeg",
-        } as any);
-
-        try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                body: formData,
-                headers: { "Content-Type": "multipart/form-data" },
-            });
-            const data = await response.json();
-            setResult(data);
-        } catch (err) {
-            Alert.alert('Error', 'Could not reach the classification server');
-        } finally {
-            setLoading(false);
-        }
     };
 
     const resetCamera = () => {
@@ -118,22 +95,10 @@ const CameraScreen = () => {
                         /**
                          * TODO #3: Implement the refresh button to re-classify the same image.
                          */
-                        <TouchableOpacity
-                            style={[{ padding: 10 }, styles.shadow]}
-                            onPress={() => classify(photoUri)}
-                        >
-                            <FontAwesome size={28} name="refresh" color="black" />
-                        </TouchableOpacity>
                     )}
                     {/**
                      * TODO #4: Implement the close button to retake the photo.
                      */}
-                    <TouchableOpacity
-                        style={[{ padding: 10 }, styles.shadow]}
-                        onPress={resetCamera}
-                    >
-                        <FontAwesome size={28} name="close" color="black" />
-                    </TouchableOpacity>
                 </View>
             </View>
         );
