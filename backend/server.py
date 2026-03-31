@@ -1,3 +1,4 @@
+# NOTE: these imports should not show errors if you installed all packages from your requirements.txt!!!
 from flask import Flask, request, jsonify
 import torch
 import torch.nn.functional as F
@@ -7,7 +8,6 @@ import io
 
 app = Flask(__name__)
 
-# Load your TorchScript model
 model = torch.jit.load("analysis_model.pt")
 model.eval()
 
@@ -19,6 +19,8 @@ class_names = [
     "McCamish Pavilion"
 ]
 
+# We want to recreate the structure of the model and INJECT our weights.
+# Notice how the transforms are identical to the setup from the Jupyter notebook.
 transform = transforms.Compose([
     transforms.Resize(256),
     transforms.CenterCrop(224),
@@ -38,6 +40,7 @@ def predict():
     img = Image.open(io.BytesIO(file.read())).convert("RGB")
     x = transform(img).unsqueeze(0)
 
+    # This looks similar to how we ran our validation!
     with torch.no_grad():
         out = model(x)
         probs = F.softmax(out, dim=1)
@@ -48,5 +51,6 @@ def predict():
         "confidence": round(probs[0][pred].item(), 4)
     })
 
+# Notice how the port number is the same one used to fetch from the frontend...
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
