@@ -19,7 +19,7 @@ class_names = [
     "McCamish Pavilion"
 ]
 
-# We want to recreate the structure of the model and INJECT our weights.
+# We want to recreate the structure of the pre-processing method and INJECT our weights.
 # Notice how the transforms are identical to the setup from the Jupyter notebook.
 transform = transforms.Compose([
     transforms.Resize(256),
